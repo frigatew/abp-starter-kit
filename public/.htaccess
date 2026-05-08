@@ -1,0 +1,37 @@
+# SPA fallback для TanStack Router (любой URL → index.html)
+RewriteEngine On
+RewriteBase /
+
+# Не трогаем PHP-эндпоинты
+RewriteRule ^api/ - [L]
+
+# Реальные файлы и папки отдаём как есть
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Всё остальное — на index.html
+RewriteRule ^ index.html [L]
+
+# Защита .env, лежащего рядом со скриптом (если вдруг положили в public_html)
+<FilesMatch "^\.env">
+  Require all denied
+</FilesMatch>
+
+# Кэш для статики
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css                  "access plus 1 year"
+  ExpiresByType application/javascript    "access plus 1 year"
+  ExpiresByType image/png                 "access plus 6 months"
+  ExpiresByType image/jpeg                "access plus 6 months"
+  ExpiresByType image/svg+xml             "access plus 6 months"
+  ExpiresByType image/webp                "access plus 6 months"
+  ExpiresByType font/woff2                "access plus 1 year"
+  ExpiresByType text/html                 "access plus 0 seconds"
+</IfModule>
+
+# Сжатие
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>
