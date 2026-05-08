@@ -63,6 +63,10 @@ export const Route = createFileRoute("/cases")({
 
 function CasesPage() {
   const [active, setActive] = useState<Case | null>(null);
+  const [showAll, setShowAll] = useState(false);
+
+  const visibleCases = showAll ? CASES : CASES.slice(0, INITIAL_VISIBLE);
+  const hasMore = CASES.length > INITIAL_VISIBLE && !showAll;
 
   return (
     <main className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-24">
@@ -78,33 +82,50 @@ function CasesPage() {
         </p>
       </header>
 
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {CASES.map((c) => (
-          <article
-            key={c.slug}
-            className="flex flex-col rounded-2xl border border-hairline bg-background p-6 transition-colors hover:bg-secondary/40"
-          >
-            <p className="mb-3 text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
-              {c.niche}
-            </p>
-            <h2 className="font-display text-xl font-medium leading-snug tracking-tight text-foreground">
-              {c.title}
-            </h2>
-            <div className="mt-auto pt-6">
-              <button
-                type="button"
-                onClick={() => setActive(c)}
-                className="group inline-flex items-center gap-2 rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-all hover:gap-3"
-              >
-                Посмотреть
-                <span aria-hidden className="transition-transform group-hover:translate-x-0.5">
-                  →
-                </span>
-              </button>
-            </div>
-          </article>
-        ))}
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {visibleCases.map((c) => {
+          const Icon = ICONS[c.slug] ?? Briefcase;
+          return (
+            <article
+              key={c.slug}
+              className="group flex flex-col rounded-2xl border border-hairline bg-background p-6 transition-all hover:border-foreground/30 hover:shadow-lg"
+            >
+              <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-secondary text-foreground transition-colors group-hover:bg-foreground group-hover:text-background">
+                <Icon className="h-6 w-6" strokeWidth={1.5} />
+              </div>
+              <p className="mb-2 text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
+                {c.niche}
+              </p>
+              <h2 className="font-display text-base font-medium leading-snug tracking-tight text-foreground">
+                {c.title}
+              </h2>
+              <div className="mt-auto pt-6">
+                <button
+                  type="button"
+                  onClick={() => setActive(c)}
+                  className="inline-flex items-center gap-2 rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-all hover:gap-3"
+                >
+                  Посмотреть
+                  <span aria-hidden className="transition-transform">→</span>
+                </button>
+              </div>
+            </article>
+          );
+        })}
       </div>
+
+      {hasMore && (
+        <div className="mt-10 flex justify-center">
+          <button
+            type="button"
+            onClick={() => setShowAll(true)}
+            className="inline-flex items-center gap-2 rounded-full border border-hairline bg-background px-6 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+          >
+            Загрузить ещё
+            <span aria-hidden>↓</span>
+          </button>
+        </div>
+      )}
 
       <Dialog open={active !== null} onOpenChange={(o) => !o && setActive(null)}>
         <DialogContent className="max-h-[85vh] max-w-2xl overflow-y-auto">
