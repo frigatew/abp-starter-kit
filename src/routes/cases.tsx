@@ -8,6 +8,39 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { CASES, type Case } from "@/lib/cases-data";
+import {
+  Pill,
+  Car,
+  Tractor,
+  Smile,
+  Sparkles,
+  GraduationCap,
+  Beef,
+  Droplets,
+  Building2,
+  Wrench,
+  Mountain,
+  Home,
+  Briefcase,
+  type LucideIcon,
+} from "lucide-react";
+
+const ICONS: Record<string, LucideIcon> = {
+  "elixir-rosta": Pill,
+  "umnaya-mobilnost": Car,
+  "agro-ekspansiya": Tractor,
+  "ulybka-bez-straha": Smile,
+  "alhimiya-chistoty": Sparkles,
+  "bilet-v-ligu-plyusha": GraduationCap,
+  "myasnaya-filosofiya": Beef,
+  "sila-istochnika": Droplets,
+  "prodavaya-budushee": Building2,
+  "inzhenernaya-tochnost": Wrench,
+  "kamennaya-uverennost": Mountain,
+  "cifrovoy-shou-rum": Home,
+};
+
+const INITIAL_VISIBLE = 6;
 
 export const Route = createFileRoute("/cases")({
   head: () => ({
