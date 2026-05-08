@@ -22,6 +22,7 @@ export function SiteFooter() {
             <ul className="space-y-2 text-sm">
               <li><Link to="/" className="hover:text-foreground text-muted-foreground">Главная</Link></li>
               <li><Link to="/services" className="hover:text-foreground text-muted-foreground">Услуги</Link></li>
+              <li><Link to="/cases" className="hover:text-foreground text-muted-foreground">Кейсы</Link></li>
               <li><Link to="/team" className="hover:text-foreground text-muted-foreground">Команда</Link></li>
               <li><Link to="/contact" className="hover:text-foreground text-muted-foreground">Контакты</Link></li>
             </ul>

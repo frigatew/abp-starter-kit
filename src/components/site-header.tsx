@@ -111,6 +111,12 @@ export function SiteHeader() {
           </DropdownMenu>
 
           <Link
+            to="/cases"
+            className="text-muted-foreground transition-colors hover:text-foreground [&.active]:text-foreground"
+          >
+            Кейсы
+          </Link>
+          <Link
             to="/team"
             className="text-muted-foreground transition-colors hover:text-foreground [&.active]:text-foreground"
           >
@@ -192,6 +198,15 @@ export function SiteHeader() {
                     className="block rounded-lg px-3 py-3 font-display text-2xl font-medium tracking-tight text-foreground hover:bg-secondary [&.active]:bg-secondary"
                   >
                     Все услуги
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/cases"
+                    onClick={() => setMobileOpen(false)}
+                    className="block rounded-lg px-3 py-3 font-display text-2xl font-medium tracking-tight text-foreground hover:bg-secondary [&.active]:bg-secondary"
+                  >
+                    Кейсы
                   </Link>
                 </li>
                 <li>
