@@ -184,18 +184,18 @@ const FAQ = [
 
 function WebDevPage() {
   const [showAll, setShowAll] = useState(false);
-  const [zoomedImg, setZoomedImg] = useState<string | null>(null);
+  
+  
+  // Теперь храним объект с картинкой и ссылкой
+  const [zoomedData, setZoomedData] = useState<{ img: string; url: string } | null>(null);
+  const [isClosing, setIsClosing] = useState(false);
 
-  // 1. ДОБАВЛЯЕМ состояние для анимации закрытия
-  const [isClosing, setIsClosing] = useState(false); 
-
-  // 2. ДОБАВЛЯЕМ функцию плавного закрытия
   const closeZoom = () => {
-    setIsClosing(true); // Включаем анимацию исчезновения
+    setIsClosing(true);
     setTimeout(() => {
-      setZoomedImg(null); // Удаляем картинку из DOM после анимации
-      setIsClosing(false); // Сбрасываем состояние для следующего раза
-    }, 200); // 200мс — столько длится наша анимация
+      setZoomedData(null); // Очищаем новые данные
+      setIsClosing(false);
+    }, 200);
   };
 
   const visibleCases = showAll ? CASES : CASES.slice(0, 3);
@@ -300,26 +300,29 @@ function WebDevPage() {
                 
                 {/* Mini gallery: desktop + mobile images */}
                 <div className="grid grid-cols-[1fr_auto] items-start gap-2 bg-secondary/50 p-4">
-                  {/* Desktop image */}
-                <div className="overflow-hidden rounded-md border border-hairline bg-background/60">
-                  <img 
-                    src={c.desktopImg} 
-                    alt={`${c.name} desktop`} 
-                    onClick={() => setZoomedImg(c.desktopImg)}
-                    className="h-auto w-full cursor-zoom-in object-contain transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy" 
-                  />
-                </div>
-                {/* Mobile image */}
-                <div className="w-[4.5rem] overflow-hidden rounded-md border border-hairline bg-background/60">
-                  <img 
-                    src={c.mobileImg} 
-                    alt={`${c.name} mobile`} 
-                    onClick={() => setZoomedImg(c.mobileImg)}
-                    className="h-auto w-full cursor-zoom-in object-contain transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy" 
-                  />
-                </div>
+                    {/* Desktop image */}
+                    <div className="overflow-hidden rounded-md border border-hairline bg-background/60">
+                      <img 
+                        src={c.desktopImg} 
+                        alt={`${c.name} desktop`} 
+                        // Передаем и картинку, и URL проекта
+                        onClick={() => setZoomedData({ img: c.desktopImg, url: c.url })}
+                        className="h-auto w-full cursor-zoom-in object-contain transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy" 
+                      />
+                    </div>
+                    {/* Mobile image */}
+                    <div className="w-[4.5rem] overflow-hidden rounded-md border border-hairline bg-background/60">
+                      <img 
+                        src={c.mobileImg} 
+                        alt={`${c.name} mobile`} 
+                        // Передаем и мобильную картинку, и URL проекта
+                        onClick={() => setZoomedData({ img: c.mobileImg, url: c.url })}
+                        className="h-auto w-full cursor-zoom-in object-contain transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy" 
+                      />
+                    </div>
+
                 </div>
 
                 <div className="p-6">
@@ -422,17 +425,17 @@ function WebDevPage() {
       </section>
 
 
-      
+
       {/* IMAGE ZOOM MODAL */}
-      {zoomedImg && (
+      {zoomedData && (
         <div 
-          // Меняем классы анимации в зависимости от состояния isClosing
           className={`fixed inset-0 z-[100] flex items-center justify-center bg-background/80 p-4 backdrop-blur-sm ${
             isClosing ? "animate-out fade-out duration-200" : "animate-in fade-in duration-200"
           }`}
-          onClick={closeZoom} // Заменяем прямое удаление на нашу функцию
+          onClick={closeZoom} 
         >
-          <div className={`relative max-h-full max-w-full ${
+          {/* Добавили flex-col и gap-6, чтобы кнопка встала под картинкой */}
+          <div className={`relative flex flex-col items-center gap-6 max-h-full max-w-full ${
             isClosing ? "animate-out zoom-out-95 duration-200" : "animate-in zoom-in-95 duration-200"
           }`}>
             {/* Крестик для закрытия */}
@@ -441,24 +444,45 @@ function WebDevPage() {
               className="absolute -right-4 -top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-hairline bg-background text-foreground shadow-sm transition-colors hover:bg-secondary"
               onClick={(e) => {
                 e.stopPropagation();
-                closeZoom(); // Заменяем прямое удаление на нашу функцию
+                closeZoom();
               }}
             >
               ✕
             </button>
+            
             {/* Сама увеличенная картинка */}
             <img
-              src={zoomedImg}
+              src={zoomedData.img} // Берем картинку из объекта
               alt="Zoomed preview"
-              className="max-h-[90vh] max-w-[90vw] cursor-zoom-out rounded-xl border border-hairline object-contain shadow-2xl"
+              // Уменьшили высоту с 90vh до 80vh, чтобы оставить место для кнопки
+              className="max-h-[80vh] max-w-[90vw] cursor-zoom-out rounded-xl border border-hairline object-contain shadow-2xl"
               onClick={(e) => {
                 e.stopPropagation();
-                closeZoom(); // Заменяем прямое удаление на нашу функцию
+                closeZoom();
               }} 
             />
+
+            {/* Кнопка перехода на сайт */}
+            {zoomedData.url && zoomedData.url !== "#" && (
+              <a
+                href={zoomedData.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()} // Запрещаем закрытие окна при клике на саму кнопку
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-foreground px-8 py-3.5 text-sm font-medium text-background transition-transform hover:scale-105 shadow-lg"
+              >
+                Посмотреть сайт
+                <span aria-hidden>↗</span>
+              </a>
+            )}
           </div>
         </div>
-      )}         
+      )}
+
+
+
+
+
       
     </>
   );
