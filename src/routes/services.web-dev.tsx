@@ -2,6 +2,36 @@ import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ContactDialog } from "@/components/contact-dialog";
 
+// === ИМПОРТЫ ДЕСКТОПНЫХ ИЗОБРАЖЕНИЙ ===
+import eurasianDesk from "@/assets/cases/eurasianmed.png";
+import vpsnlsDesk from "@/assets/cases/vpsnls.png";
+import fullcolocationnlsDesk from "@/assets/cases/fullcolocationnls.png";
+import colocationnlsDesk from "@/assets/cases/colocationnls.png";
+import dedicatednlsDesk from "@/assets/cases/dedicatednls.png";
+import sksnlsDesk from "@/assets/cases/sksnls.png";
+import internetnlsDesk from "@/assets/cases/internetnls.png";
+import itnlsDesk from "@/assets/cases/itnls.png";
+import remesloDesk from "@/assets/cases/remeslo.png";
+import novaformDesk from "@/assets/cases/novaform.png";
+import epovDesk from "@/assets/cases/epov.png";
+import usmileDesk from "@/assets/cases/usmile.png";
+import ombuDesk from "@/assets/cases/ombu.png";
+
+// === ИМПОРТЫ МОБИЛЬНЫХ ИЗОБРАЖЕНИЙ ===
+import eurasianMob from "@/assets/cases/eurasianmed-mob.png";
+import vpsnlsMob from "@/assets/cases/vpsnls-mob.png";
+import fullcolocationnlsMob from "@/assets/cases/fullcolocationnls-mob.png";
+import colocationnlsMob from "@/assets/cases/colocationnls-mob.png";
+import dedicatednlsMob from "@/assets/cases/dedicatednls-mob.png";
+import sksnlsMob from "@/assets/cases/sksnls-mob.png";
+import internetnlsMob from "@/assets/cases/internetnls-mob.png";
+import itnlsMob from "@/assets/cases/nlsit-mob.png";
+import remesloMob from "@/assets/cases/remeslo-mob.png";
+import novaformMob from "@/assets/cases/novaform-mob.png";
+import epovMob from "@/assets/cases/epov-mob.png";
+import usmileMob from "@/assets/cases/usmile-mob.png";
+import ombuMob from "@/assets/cases/ombu-mob.png";
+
 export const Route = createFileRoute("/services/web-dev")({
   head: () => ({
     meta: [
@@ -26,56 +56,116 @@ type CaseStudy = {
   tech: string[];
   desc: string;
   url: string;
+  desktopImg: string;
+  mobileImg: string;
 };
 
+// Вставляем переменные картинок без кавычек
 const CASES: CaseStudy[] = [
+  
   {
-    name: "AlmaLogistics",
-    tech: ["React", "TypeScript", "Tailwind", "TanStack Router"],
-    desc: "Корпоративный сайт логистической компании с калькулятором доставки.",
-    url: "https://example.com",
-  },
-  {
-    name: "Steppe Coffee",
-    tech: ["React", "Tailwind", "Sanity CMS"],
-    desc: "Сайт сети кофеен с меню, доставкой и онлайн-картой заведений.",
-    url: "https://example.com",
-  },
-  {
-    name: "Nomad Real Estate",
-    tech: ["Next.js", "TypeScript", "PostgreSQL"],
-    desc: "Платформа для подбора недвижимости с фильтрами и личным кабинетом.",
-    url: "https://example.com",
-  },
-  {
-    name: "Dental Clinic Aibolit",
+    name: "Epov",
     tech: ["React", "TypeScript", "Tailwind"],
-    desc: "Сайт стоматологии с онлайн-записью и интеграцией CRM.",
-    url: "https://example.com",
+    desc: "Сайт для режиссера и видеопродюсера.",
+    url: "https://epov.abp.kz/",
+    desktopImg: epovDesk,
+    mobileImg: epovMob,
   },
   {
-    name: "Tau Fitness",
-    tech: ["React", "Tailwind", "Stripe"],
-    desc: "Лендинг сети фитнес-клубов с продажей абонементов онлайн.",
-    url: "https://example.com",
+    name: "EurasianMed",
+    tech: ["Tilda", "ZeroBlock"],
+    desc: "Курсы профессионального массажа с онлайн-записью.",
+    url: "https://eurasianmed.tilda.ws/",
+    desktopImg: eurasianDesk,
+    mobileImg: eurasianMob,
   },
   {
-    name: "EduKZ Online",
-    tech: ["Next.js", "TypeScript", "Supabase"],
-    desc: "Образовательная платформа с курсами, оплатой и личным кабинетом ученика.",
-    url: "https://example.com",
+    name: "NLS IT",
+    tech: ["Vue.js"],
+    desc: "Комплексные IT-решения и аутсорсинг для корпоративного сектора.",
+    url: "https://nlsit.kz/",
+    desktopImg: itnlsDesk,
+    mobileImg: itnlsMob,
   },
   {
-    name: "Aral Travel",
-    tech: ["React", "TypeScript", "Tailwind"],
-    desc: "Туристический сайт с турами по Казахстану и онлайн-бронированием.",
-    url: "https://example.com",
+    name: "Usmile",
+    tech: ["React", "TypeScript"],
+    desc: "Современный сайт стоматологической клиники.",
+    url: "https://usmile.abp.kz/",
+    desktopImg: usmileDesk,
+    mobileImg: usmileMob,
   },
   {
-    name: "Astana Build",
-    tech: ["React", "TypeScript", "Tailwind"],
-    desc: "Сайт строительной компании с портфолио объектов и калькулятором смет.",
-    url: "https://example.com",
+    name: "Remeslo",
+    tech: ["Wordpress", "PHP"],
+    desc: "3-d визуализация интерьера и экстерьера с витриной работ для европейского рынка.",
+    url: "https://remeslo.co/",
+    desktopImg: remesloDesk,
+    mobileImg: remesloMob,
+  },
+  {
+    name: "Novaform",
+    tech: ["React", "TypeScript"],
+    desc: "Мебель на заказ.",
+    url: "https://novaform.abp.kz/",
+    desktopImg: novaformDesk,
+    mobileImg: novaformMob,
+  },
+  {
+    name: "Ombu",
+    tech: ["React", "TypeScript"],
+    desc: "Premium SPA салон.",
+    url: "http://ombuspa.abp.kz/",
+    desktopImg: ombuDesk,
+    mobileImg: ombuMob,
+  },
+  {
+    name: "VPS NLS",
+    tech: ["React", "TypeScript"],
+    desc: "Платформа для аренды виртуальных серверов с конфигуратором.",
+    url: "https://server.nls.kz/",
+    desktopImg: vpsnlsDesk,
+    mobileImg: vpsnlsMob,
+  },
+  {
+    name: "Full Colocation NLS",
+    tech: ["React", "TypeScript"],
+    desc: "Сайт провайдера услуг аренды стоек для серверного оборудования.",
+    url: "https://rack.nls.kz/",
+    desktopImg: fullcolocationnlsDesk,
+    mobileImg: fullcolocationnlsMob,
+  },
+  {
+    name: "Colocation NLS",
+    tech: ["React", "TypeScript"],
+    desc: "Лендинг для продвижения услуги Colocation.",
+    url: "https://colocation.nls.kz/",
+    desktopImg: colocationnlsDesk,
+    mobileImg: colocationnlsMob,
+  },
+  {
+    name: "Dedicated NLS",
+    tech: ["React", "TypeScript"],
+    desc: "Сайт для заказа выделенных серверов под высоконагруженные проекты.",
+    url: "https://dedicated.nls.kz/",
+    desktopImg: dedicatednlsDesk,
+    mobileImg: dedicatednlsMob,
+  },
+  {
+    name: "SKS NLS",
+    tech: ["Tilda", "Zero Block"],
+    desc: "Услуги по проектированию локальных сетей.",
+    url: "https://lan.nls.kz/",
+    desktopImg: sksnlsDesk,
+    mobileImg: sksnlsMob,
+  },
+  {
+    name: "Internet NLS",
+    tech: ["React", "Vite"],
+    desc: "Провайдер высокоскоростного интернета для бизнеса.",
+    url: "https://internet.nls.kz/",
+    desktopImg: internetnlsDesk,
+    mobileImg: internetnlsMob,
   },
 ];
 
@@ -83,7 +173,6 @@ const STACK = [
   { t: "React + TypeScript", d: "Современная и отказоустойчивая архитектура." },
   { t: "Tilda Publishing", d: "Запуск и доработка проектов в сжатые сроки на популярной платформе конструкторе. Создание уникального дизайна через Zero Block." },
   { t: "Wordpress", d: "Универсальная CMS с удобной админкой. Идеально подходит, если ваша команда уже привыкла работать с этой платформой." },
-  
 ];
 
 const FAQ = [
@@ -95,6 +184,20 @@ const FAQ = [
 
 function WebDevPage() {
   const [showAll, setShowAll] = useState(false);
+  const [zoomedImg, setZoomedImg] = useState<string | null>(null);
+
+  // 1. ДОБАВЛЯЕМ состояние для анимации закрытия
+  const [isClosing, setIsClosing] = useState(false); 
+
+  // 2. ДОБАВЛЯЕМ функцию плавного закрытия
+  const closeZoom = () => {
+    setIsClosing(true); // Включаем анимацию исчезновения
+    setTimeout(() => {
+      setZoomedImg(null); // Удаляем картинку из DOM после анимации
+      setIsClosing(false); // Сбрасываем состояние для следующего раза
+    }, 200); // 200мс — столько длится наша анимация
+  };
+
   const visibleCases = showAll ? CASES : CASES.slice(0, 3);
 
   return (
@@ -194,16 +297,29 @@ function WebDevPage() {
           <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {visibleCases.map((c) => (
               <article key={c.name} className="group overflow-hidden rounded-2xl border border-hairline bg-background transition-colors hover:border-foreground/30">
-                {/* Mini gallery: desktop + mobile placeholders */}
-                <div className="grid grid-cols-[1fr_auto] gap-2 bg-secondary/50 p-4">
-                  {/* Desktop placeholder */}
-                  <div className="aspect-[16/10] rounded-md border border-dashed border-foreground/20 bg-background/60 flex items-center justify-center">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">Desktop</span>
-                  </div>
-                  {/* Mobile placeholder */}
-                  <div className="aspect-[9/16] w-16 rounded-md border border-dashed border-foreground/20 bg-background/60 flex items-center justify-center">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground rotate-90">Mob</span>
-                  </div>
+                
+                {/* Mini gallery: desktop + mobile images */}
+                <div className="grid grid-cols-[1fr_auto] items-start gap-2 bg-secondary/50 p-4">
+                  {/* Desktop image */}
+                <div className="overflow-hidden rounded-md border border-hairline bg-background/60">
+                  <img 
+                    src={c.desktopImg} 
+                    alt={`${c.name} desktop`} 
+                    onClick={() => setZoomedImg(c.desktopImg)}
+                    className="h-auto w-full cursor-zoom-in object-contain transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy" 
+                  />
+                </div>
+                {/* Mobile image */}
+                <div className="w-[4.5rem] overflow-hidden rounded-md border border-hairline bg-background/60">
+                  <img 
+                    src={c.mobileImg} 
+                    alt={`${c.name} mobile`} 
+                    onClick={() => setZoomedImg(c.mobileImg)}
+                    className="h-auto w-full cursor-zoom-in object-contain transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy" 
+                  />
+                </div>
                 </div>
 
                 <div className="p-6">
@@ -304,6 +420,46 @@ function WebDevPage() {
           </div>
         </div>
       </section>
+
+
+      
+      {/* IMAGE ZOOM MODAL */}
+      {zoomedImg && (
+        <div 
+          // Меняем классы анимации в зависимости от состояния isClosing
+          className={`fixed inset-0 z-[100] flex items-center justify-center bg-background/80 p-4 backdrop-blur-sm ${
+            isClosing ? "animate-out fade-out duration-200" : "animate-in fade-in duration-200"
+          }`}
+          onClick={closeZoom} // Заменяем прямое удаление на нашу функцию
+        >
+          <div className={`relative max-h-full max-w-full ${
+            isClosing ? "animate-out zoom-out-95 duration-200" : "animate-in zoom-in-95 duration-200"
+          }`}>
+            {/* Крестик для закрытия */}
+            <button
+              type="button"
+              className="absolute -right-4 -top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-hairline bg-background text-foreground shadow-sm transition-colors hover:bg-secondary"
+              onClick={(e) => {
+                e.stopPropagation();
+                closeZoom(); // Заменяем прямое удаление на нашу функцию
+              }}
+            >
+              ✕
+            </button>
+            {/* Сама увеличенная картинка */}
+            <img
+              src={zoomedImg}
+              alt="Zoomed preview"
+              className="max-h-[90vh] max-w-[90vw] cursor-zoom-out rounded-xl border border-hairline object-contain shadow-2xl"
+              onClick={(e) => {
+                e.stopPropagation();
+                closeZoom(); // Заменяем прямое удаление на нашу функцию
+              }} 
+            />
+          </div>
+        </div>
+      )}         
+      
     </>
   );
 }
